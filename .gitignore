@@ -1,3 +1,22 @@
+# Mac files
+.DS_Store
+*/.DS_Store
+
+# Python
+__pycache__
+secrets.py
+
+# Other
+resources/*
+.cache-*
+*.csv
+*.html
+*.json
+
+# Visual Studio Code
+.vscode
+tempCodeRunnerFile.python
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
