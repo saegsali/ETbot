@@ -9,7 +9,7 @@ Create this file and add this line:
 
 ### data.json
 This file contains all course informations.  
-Create this file and add a course like in this example:
+Create this file and add some courses like in this example:
 ```
 {
 	
