@@ -5,6 +5,7 @@
 # Python
 __pycache__
 secrets.py
+test.py
 
 # Other
 resources/*
