@@ -8,7 +8,7 @@ Create this file and add this line:
 `token = "<your_token>"`
 
 ### data.json
-This file contains all course informations.
+This file contains all course informations.  
 Create this file and add a course like in this example:
 ```
 {
