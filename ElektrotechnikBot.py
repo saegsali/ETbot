@@ -11,6 +11,7 @@ client = discord.Client()
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
 
+# respond with lecture link
 async def sendLink(message):
     with open('data.json') as f:
         data = json.load(f)
@@ -24,6 +25,7 @@ async def sendLink(message):
             await channel.send(course['link'])
             await channel.send(course['message'])
 
+# respond to user message
 @client.event
 async def on_message(message):
     if message.content.startswith('test'):
@@ -40,7 +42,6 @@ async def on_message(message):
             data = json.load(f)
             
         text = "Possible commands: "
-        
         for course in data['courses']:
             text += course['key']
             text += ", "
@@ -51,6 +52,7 @@ async def on_message(message):
     
     await sendLink(message)
 
+# upload a random meme from https://xkcd.com
 def getMeme():
     RandomMemeURL = 'https://c.xkcd.com/random/comic/'
     
@@ -63,21 +65,17 @@ def getMeme():
         print(line)
         MemeURL = line[38:]
     
-    print(MemeURL + "aa")
-    
     r = requests.get(MemeURL[:-1])
-    #print(r.content)
     with open('meme.png', 'wb') as f:
         f.write(r.content)
 
-    
-
+# scheduled tasks
 async def time_check():
     await client.wait_until_ready()
     channel = client.get_channel(message_channel_id)
     while client.is_ready:
         tday = datetime.datetime.now()
-        print(tday.strftime("%H:%M"))
+        #print(tday.strftime("%H:%M"))
         
         with open('data.json') as f:
             data = json.load(f)
