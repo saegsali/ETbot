@@ -1,8 +1,8 @@
 import discord
 import asyncio
 import json
+import datetime
 from secrets import *
-
 
 client = discord.Client()
 
@@ -21,7 +21,7 @@ async def sendLink(message):
             text = "Da de link für d " + course['name']
             await channel.send(text)
             await channel.send(course['link'])
-            await channel.send("vill spass:)")
+            await channel.send(course['message'])
 
 @client.event
 async def on_message(message):
@@ -41,8 +41,29 @@ async def on_message(message):
         
         channel = message.channel
         await channel.send(text)
+    print(message.channel)
     
     await sendLink(message)
 
+async def time_check():
+    await client.wait_until_ready()
+    channel = client.get_channel(message_channel_id)
+    while client.is_ready:
+        tday = datetime.datetime.now()
+        print(tday.strftime("%H:%M"))
+        
+        with open('data.json') as f:
+            data = json.load(f)
+        
+        time = 10
+        for course in data['courses']:
+            if course['time'] == tday.strftime("%H:%M") and course['day'] == tday.strftime("%A"):
+                message = "Da de Link für di hüttigi " + course['name'] + ":"
+                await channel.send(message)
+                await channel.send(course['link'])
+                await channel.send(course['message'])
+                time = 90
+        await asyncio.sleep(time)
 
+client.loop.create_task(time_check())
 client.run(token)
