@@ -6,6 +6,7 @@
 __pycache__
 secrets.py
 test.py
+tempCodeRunnerFile.py
 
 # Other
 resources/*
@@ -13,10 +14,11 @@ resources/*
 *.csv
 *.html
 *.json
+*.png
 
 # Visual Studio Code
 .vscode
-tempCodeRunnerFile.python
+tempCodeRunnerFile.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

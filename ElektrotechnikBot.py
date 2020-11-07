@@ -2,6 +2,7 @@ import discord
 import asyncio
 import json
 import datetime
+import requests
 from secrets import *
 
 client = discord.Client()
@@ -29,6 +30,11 @@ async def on_message(message):
         channel = message.channel
         await channel.send('selber test!')
     
+    if message.content.startswith('meme'):
+        channel = message.channel
+        getMeme()
+        await channel.send(file=discord.File('meme.png'))
+    
     if message.content.startswith('help'):
         with open('data.json') as f:
             data = json.load(f)
@@ -44,6 +50,27 @@ async def on_message(message):
     print(message.channel)
     
     await sendLink(message)
+
+def getMeme():
+    RandomMemeURL = 'https://c.xkcd.com/random/comic/'
+    
+    r = requests.get(RandomMemeURL)
+    with open('meme.html', 'w') as f:
+        f.write(r.text)
+
+    with open('meme.html') as f:
+        line = f.readlines()[79]
+        print(line)
+        MemeURL = line[38:]
+    
+    print(MemeURL + "aa")
+    
+    r = requests.get(MemeURL[:-1])
+    #print(r.content)
+    with open('meme.png', 'wb') as f:
+        f.write(r.content)
+
+    
 
 async def time_check():
     await client.wait_until_ready()
